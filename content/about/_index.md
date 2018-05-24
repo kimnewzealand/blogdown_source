@@ -1,15 +1,31 @@
 +++
-date = "2017-12-22T21:05:33+05:30"
 title = "About me"
+image = "img/about.jpg"
+showonlyimage = true
 +++
 
+### Background
 
-[1]: /img/profile.jpg
+I have a background in Actuarial Science and have worked in analyst roles and project delivery in Credit Risk and Finance. I discovered data science as a magical field that combines my statistics and analytical skills; my project and multitasking experience; a curiosity of numbers and patterns; love of learning new tools and concepts whilst working with a variety of people and teams.
 
-I have explored different ways of learning how to code and how to use different tools for statistics and data science. I believe the best way to learn is to experiment, practice and share these skills and knowledge.
+### Current Role
 
-I live in Auckland, New Zealand and regularly attend meetups and conferences and I am the organiser of R-Ladies Auckland.
+I now work as an independent through [Validly](http://www.validly.co/) and am available for remote data science work.
 
-I work as an independent through validly and am available for remote data science work.
+Current areas of interest for professional development:  
 
-My areas of specialisation are visualisations, time series and machine learning.
++ Interactive visualisations in R and JavaScript  
++ Time series in R  
++ Machine learning in R, Python, Keras, Golang and H2O
+
+### Other Professional Activities
+
+I regularly attend meetups, workshops and data science conferences.
+
+I also founded the Auckland chapter of R-Ladies in November 2017 after attending the R-Ladies Melbourne meetup in October 2017.
+
+### Manifesto for Data Practices
+
+I have signed the [Manifesto for Data Practices](https://datapractices.org/manifesto/). These values and principles, taken together, describe the most effective, ethical, and modern approach to data teamwork.
+
+[1]: /img/about.jpg

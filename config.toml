@@ -6,17 +6,20 @@ languageCode = "en-us"
 # Enable comments by entering your Disqus shortname
 disqusShortname = ""
 # Enable Google Analytics by entering your tracking code
-googleAnalytics = ""
+googleAnalytics = "UA-114904130-1"
+ignoreFiles = [ "_files$", "_cache$"]
 
 [params]
   # Style options: default (pink), blue, green, pink, red, sea, violet
   # Use custom.css for your custom styling
-  style = "blue"
+  style = "style.sea.css"
   description = ""
   copyright = "Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)"
   sidebarAbout = [
-    "Data science nut avidly interested in visualisation, time series and machine learning. Based in Auckland, New Zealand"
+    "Curious about Data Science tools, algorithms and all types of visualisations. Based in Auckland, New Zealand"
   ]
+  # Your details.
+  name = "Kim Fitter"
   # Contact page
      # Since this template is static, the contact form uses www.formspree.io as a
      # proxy. The form makes a POST request to their servers to send the actual
@@ -40,10 +43,8 @@ googleAnalytics = ""
   name = "About"
   url = "about/"
 
-  [[params.navlinks]]
-  name = "Blog"
-  url = "blog/"
-
+    [permalinks]
+    post = "/:year/:month/:day/:slug/"
 
   [params.social]
   twitter       = "https://twitter.com/kim_fitter"
