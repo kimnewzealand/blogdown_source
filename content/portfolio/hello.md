@@ -1,7 +1,6 @@
 +++
 showonlyimage = false
 draft = false
-image = "img/portfolio/a4-paper.jpg"
 title = "Hello blog"
 weight = 0
 +++
