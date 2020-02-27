@@ -52,7 +52,7 @@ We then set up a Sessionize link to call for speakers to either submit contribut
 
 Profiles of the speakers and the schedule are available on the [website](https://auckland2020.satrdays.org/).
 
-The videos are available on YouTube.
+The videos are available on [YouTube](https://www.youtube.com/playlist?list=PL8ncIDIP_e6v1dV1xVacsH4qjuoPMMnDe), with a huge thanks to [Jonathan Ng](https://www.linkedin.com/in/jonathanjng/)
 
 ## Event measures of success
 
