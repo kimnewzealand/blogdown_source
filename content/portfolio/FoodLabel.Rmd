@@ -1,0 +1,291 @@
+
+---
+title: "Food Label Analysis"
+date: "24 August 2020"
+slug: food-label
+tags:
+- R
+- Viz
+categories: Post
+---
+
+
++ [Introduction](#introduction)
++ [Data](#data)
++ [Data Cleaning](#data-cleaning)
++ [Exploratory Data Analysis](#exploratory-data-analysis)
++ [Data Visualisation](#data-visualisation)
++ [Conclusions](#conclusions)
+
+
+
+```{r packages, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(kableExtra)
+library(reactable)
+library(htmltools)
+```
+
+
+### Introduction
+
+Food labels can be confusing and hard to read, with the small numbers and text in the Nutrition Label Information table. Additionally ingredients lists can be long, and also written in small text. This information can be difficult to process on the go and without a reference point.
+
+
+According to the [Heart Foundation NZ](https://www.heartfoundation.org.nz/wellbeing/healthy-eating/how-to-read-food-labels) this table is a guide for what to look for on the ‘nutrition information panel’ on food labels.
+
+![Heart Foundation NZ](https://www.heartfoundation.org.nz/media/images/nutrition/general-images/food-label-reading_737_553.jpg)
+
+
+As a side project, I am creating a [website](https://food-label.herokuapp.com/) is to visualise food labeling data from food packaging with JavaScript libraries Node.js and D3, React and possibly using a MongoDB database. 
+
+This data analysis helps to understand the data behind the web application using visual interactive tables. 
+
+TL;DR jump to the [Data Visualisation](#data-visualisation).
+
+### Data
+
+Food and nutrition data is available from the [Ministry of Health](https://www.health.govt.nz/nz-health-statistics/health-statistics-and-data-sets/nutrition-data-and-stats).
+
+Plant & Food Research and the Ministry of Health jointly own the [New Zealand Food Composition Database](https://www.foodcomposition.co.nz/).  This database source provides a comprehensive collection of nutrition information panel data as seen on food managing.
+
+The FOODfiles™ Data is available subject to the FOODfiles™ Data Licensing [terms](https://www.foodcomposition.co.nz/terms/).
+
+I tried to download various files from the website but the easiest data file to use for this analysis is the `Standard DATA.AP` which contains data in a table format.  
+
+Ideally information panel data would be available in csv format available as a link in the foodcomposition website for direct import for better reproduceability.
+
+```{r data import}
+standard <- readxl::read_xlsx("Standard DATA.AP.xlsx",skip = 1)
+```
+
+### Data Cleaning
+
+Let's extract the nutrient columns related to the nutrition information panels.
+
+```{r nip data}
+standard_nip <- standard %>% 
+  select(`Food Name`,Chapter,`Energy, total metabolisable, carbohydrate by difference, FSANZ (kJ)`,`Protein, total; calculated from total nitrogen`,`Fat, total`,`Fatty acids, total saturated`,`Sugars, total`,`Fibre, total dietary`,Sodium) %>% 
+  slice(-1) %>% 
+  mutate_at(vars(3:9), as.numeric)
+```
+
+We can extract the  units of these nutrients.
+
+```{r units}
+units <- standard %>% 
+  select(`Food Name`,Chapter,`Energy, total metabolisable, carbohydrate by difference, FSANZ (kJ)`,`Protein, total; calculated from total nitrogen`,`Fat, total`,`Fatty acids, total saturated`,`Sugars, total`,`Fibre, total dietary`,Sodium) %>% 
+  slice(1)
+```
+
+We can rename the columns with a [snake case naming convention](https://style.tidyverse.org/syntax.html#object-names).
+
+```{r names}
+names(standard_nip) <- c("food_name","chapter","energy","protein","fat_total","fat_saturated","sugars","fibre","sodium")
+names(units) <- c("food_name","chapter","energy","protein","fat_total","fat_saturated","sugars","fibre","sodium")
+```
+
+### Exploratory Data Analysis
+
+There are `r dim(standard)[1]` rows and `r dim(standard)[2]` columns.
+
+Now take a look at summary statistics with the [skimr R package](https://cran.r-project.org/web/packages/skimr/index.html) of the `standard_nip` dataset.
+
+```{r skim standard_nip}
+standard_nip %>% 
+  skimr::skim()
+```
+
+Now the `units`:
+
+```{r glimpse units}
+units %>% 
+  glimpse()
+```
+
+Since they have different units, the `g/100g` nutrients could be compared as a group, whereas the other units would be compared individually.
+
+In order to check that we have extracted the same nutrition information panel data as in the labels, compare the [Butter, unsalted](https://www.foodcomposition.co.nz/search/food/F1050/nip) to the following:
+
+```{r unsalted butter}
+standard_nip %>% 
+  filter(str_detect(food_name,"Butter, unsalted"))
+```
+
+Now let's view some tables using the [kableExtra R package](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html).  
+
+
+What is the food with most energy?
+
+```{r most_energy}
+standard_nip %>% 
+  slice(which.max(energy)) %>% 
+  select(food_name,energy) %>% 
+  kable() %>%
+  kable_styling()
+```
+
+What is the food with most protein?
+
+```{r most_protein}
+standard_nip %>% 
+  slice(which.max(protein)) %>% 
+  select(food_name,protein) %>% 
+   kable() %>%   kable_styling()
+```
+
+What is the food with most saturated fat ( the measure of total fat brings back oils with 100g of 100g total fat)?
+
+```{r most_fat}
+standard_nip %>% 
+  slice(which.max(fat_saturated)) %>% 
+  select(food_name,fat_saturated) %>% 
+   kable() %>%   kable_styling()
+```
+
+What is the food with the most sugar?
+
+```{r most_sugar}
+standard_nip %>% 
+  slice(which.max(sugars)) %>% 
+  select(food_name,sugars) %>% 
+   kable() %>%   kable_styling()
+```
+
+What is the saltiest food?
+
+```{r most_salt}
+standard_nip %>% 
+  slice(which.max(sodium)) %>% 
+  select(food_name,sodium) %>% 
+   kable() %>%   kable_styling()
+```
+
+Take a look at the miscellaneous food group, which includes herbs and condiments. What food items have the most energy, protein, saturated fat, sugars, fibre and sodium?
+
+
+We can create a function unquoting the column names as a step with [rlang R package](https://rlang.r-lib.org/) and [tidyeval](https://tidyeval.tidyverse.org/dplyr.html) to get extract the top 5 foods by nutrient.
+
+```{r top5 function}
+top5 <- function(nutrient) {
+  require("dplyr")
+  output <- standard_nip %>% 
+  filter(chapter=="P") %>% 
+  arrange(desc(!! rlang::sym(nutrient))) %>% 
+  select(food_name,!!nutrient) %>% 
+  slice(1:5)  
+  return(output)
+}
+
+top5(nutrient= "energy") %>%
+  kable() %>%   
+  kable_styling()
+top5(nutrient= "protein") %>%
+  kable() %>%   
+  kable_styling()
+top5(nutrient= "fat_saturated") %>%
+  kable() %>%   
+  kable_styling()
+top5(nutrient= "sugars") %>%
+  kable() %>%   
+  kable_styling()
+top5(nutrient= "fibre") %>%
+  kable() %>%   
+  kable_styling()
+top5(nutrient= "sodium") %>%
+  kable() %>%   
+  kable_styling()
+```
+
+
+
+### Data Visualisation
+
+Now create HTML bar charts with the [reactable and htmltools R packages](https://glin.github.io/reactable/articles/cookbook/cookbook.html#bar-charts-1).
+
+
+I chose this fun [colour palette](https://colorpalettes.com/palette/321) to distinguish the units.
+
+```{r reactable}
+# Set global theme
+options(reactable.theme = reactableTheme(
+style = list(fontFamily = "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif"),
+  color = "hsl(233, 9%, 87%)",
+  backgroundColor = "hsl(233, 9%, 19%)",
+  borderColor = "hsl(233, 9%, 22%)",
+  stripedColor = "hsl(233, 12%, 22%)",
+  highlightColor = "hsl(233, 12%, 24%)",
+  inputStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
+  selectStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
+  pageButtonHoverStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
+  pageButtonActiveStyle = list(backgroundColor = "hsl(233, 9%, 28%)")
+))
+# Render a bar chart with a label on the left
+bar_chart <- function(label, width = "100%", height = "16px", fill = "#00bfc4", background = NULL) {
+  bar <- div(style = list(background = fill, width = width, height = height))
+  chart <- div(style = list(flexGrow = 1, marginLeft = "8px", background = background), bar)
+  div(style = list(display = "flex", alignItems = "center"), label, chart)
+}
+
+reactable(standard_nip %>% select(-chapter), 
+          columns = list(
+  food_name = colDef(name = "Food Name", align = "left"),
+  energy = colDef(name = "Energy (kJ/100g)", align = "left", cell = function(value) {
+    width <- paste0(value / max(standard_nip$energy) * 100, "%")
+    bar_chart(round(value,0), width = width,fill = "#E3A8CB", background = "#999999")
+  }),
+  protein = colDef(name = "Protein (g/100g)", align = "left", cell = function(value) {
+    width <- paste0(value / max(standard_nip$protein) * 100, "%")
+    bar_chart(round(value,0), width = width,fill = "#E98E10", background = "#999999")
+  }),
+  fat_total = colDef(name = "Fat Total (g/100g)", align = "left", cell = function(value) {
+    width <- paste0(value / max(standard_nip$fat_total) * 100, "%")
+    bar_chart(round(value,0), width = width, fill = "#E98E10", background = "#999999")
+  }),
+  fat_saturated = colDef(name = "Saturated Fat (g/100g)", align = "left", cell = function(value) {
+    width <- paste0(value / max(standard_nip$fat_saturated) * 100, "%")
+    bar_chart(round(value,0), width = width, fill = "#E98E10", background = "#999999")
+  }),
+  sugars = colDef(name = "Sugars (g/100g)", align = "left", cell = function(value) {
+    width <- paste0(value / max(standard_nip$sugars) * 100, "%")
+    bar_chart(round(value,0), width = width, fill = "#E98E10", background = "#999999")
+  }),
+  fibre = colDef(name = "Fibre (g/100g)", align = "left", cell = function(value) {
+    width <- paste0(value / max(standard_nip$fibre) * 100, "%")
+    bar_chart(round(value,0), width = width, fill = "#E98E10", background = "#999999")
+  }),
+  sodium = colDef(name = "Sodium (mg/100g)", align = "left", cell = function(value) {
+    width <- paste0(value / max(standard_nip$sodium) * 100, "%")
+    bar_chart(round(value,0), width = width, fill = "#A2DC84", background = "#999999")
+  })
+),  
+  filterable = TRUE,
+  showPageSizeOptions = TRUE,
+  striped = TRUE,
+  highlight = TRUE)
+```
+
+```{html}
+<iframe src="../img/reactable.html"    
+width="100%" 
+height="500" ></iframe> 
+```
+
+
+
+### Conclusion
+
+This `reactable` is a great interactive tool to summarise and explore the nutrition information panel data. It is possible to sort and filter, and also view the value of the nutrient relative to the range of the nutrient values across all foods.
+
+I would like to explore the Miscellaneous food group more in the data visualisation, since the herbs and spices nutrient levels vary with some relatively high levels, based on these tables.
+
+As a note, the reactable html output doesn't show up in the blogdown output html so I saved the html output and added this code snippet: 
+
+<xmp>
+<iframe src="../img/reactable.html"    
+width="100%" 
+height="500" ></iframe> 
+</xmp>
+
+
+

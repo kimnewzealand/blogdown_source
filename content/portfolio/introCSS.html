@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- This HTML was updated manually as academy practice -->.
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.31.1" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://kimnewzealand.github.io/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://kimnewzealand.github.io/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="https://kimnewzealand.github.io/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://kimnewzealand.github.io/img/favicon.ico" type="image/x-icon" />
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="https://kimnewzealand.github.io/">Kim Fitter</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://kimnewzealand.github.io/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://kimnewzealand.github.io/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://twitter.com/kim_fitter" target="_blank"><i class="fa fa-twitter-square fa-fw"></i>Twitter</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/kimnewzealand" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+<div id="main">
+
+
+  <div class="header">
+    <h1>Introduction to CSS with Mondrian</h1>
+ 
+  </div>
+  <div class="content">
+  
+    <div class="post-meta">
+  
+    <div>
+      <i class="fa fa-calendar fa-fw"></i>
+      <time>22 April 2020</time>
+    </div>
+  
+    
+  
+    
+  
+    
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://kimnewzealand.github.io/tags/tutorial">tutorial</a>&nbsp;&#47;
+    
+      
+  </div>
+  
+  
+
+</div>
+
+
+
+<ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#elements">HTML Elements</a></li>
+  <li><a href="#box-model">Box Model</a></li>
+  <li><a href="#box-code">Show me the Box Model Code</a></li>
+  <li><a href="#css-selectors">CSS Selectors</a></li>
+  <li><a href="#css-layout">CSS Layout</a></li>
+  <li><a href="#painting-code">Show me the Painting Code</a></li>
+  <li><a href="#ref">References</a></li>
+</ul>
+
+<style>
+  .container_m {
+      background:#000;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 0.25em;
+      grid-template-rows: repeat(3, 1fr);
+      width:${margin};
+      max-width: 50em;
+      height: 100vh;
+      margin: 5em 5em 5em 5em;
+    
+    }
+  .one_m {
+    border: 2px solid #000;
+    background-color:#fff001;
+    grid-column: 1 ;
+    grid-row: 1 ;
+    }
+  .two_m { 
+    border: 2px solid #000;
+    background-color:#0101fd;
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+    }
+  .three_m {
+    border: 2px solid #000;
+    background-color:#FFF;
+    grid-column: 3;
+    grid-row: 2 ;
+    }
+  .four_m {
+    border: 2px solid #000;
+    background-color:#ff0101;
+    grid-column: 3;
+    grid-row: 3;
+    }
+  .five_m {
+    border: 2px solid #000;
+    background-color:#AAA;
+    grid-column: 1 / 3;
+    grid-row: 3;
+    }
+  </style>
+   <!-- Create a container with 5 boxes -->
+   <div class='container_m' >
+        <div class='one_m'> </div>
+         <div class='two_m'> </div>
+         <div class='three_m'> </div>
+         <div class='four_m'> </div>
+         <div class='five_m'> </div>
+  </div>
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+
+Two of the basic <a href="https://developer.mozilla.org/en-US/docs/Web">web technologies</a> are 
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTML">HTML</a>, which defines the structure and
+<a href = "https://developer.mozilla.org/en-US/docs/Web/CSS">CSS</a>, which describes the appearance of structural elements.
+
+<br>
+<br>
+We can use a Mondrian colour palette to explain what CSS does and what it looks like with HTML elements.
+<a href=" https://en.wikipedia.org/wiki/Piet_Mondrian">Piet Mondrian</a> 
+was a Dutch painter famous for his palette of primary colours and drawing lines around boxes.
+<br>
+<br>
+<style>
+  .palette img {
+   width: 100%;
+   height: auto;
+}
+ </style>
+<div class="palette">
+<img src="https://www.color-hex.com/palettes/27086.png" alt="Mondrian palette">
+</div>
+
+<div id="elements" class="section level2"></div>
+<h2>HTML Elements</h2>
+
+The HTML elements are either <a href=" https://www.w3schools.com/html/html_blocks.asp">block or in-line elements</a>. 
+<br>
+<ul> 
+  <li><strong>Block</strong> elements ( for example the section <code>div</code>) fill up the available space.</li>
+  <li><strong>In-line</strong> elements ( for example the italic <code>i</code> ) just use up what is needed.</li>
+</ul>
+</div>
+
+<div id="box-model" class="section level2"></div>
+<h2>Box Model</h2>
+
+The spacing of every HTML <strong>block</strong> element has three CSS properties :
+
+<ul> 
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border">border</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding">padding</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding">margin</a></li>
+</ul>
+
+
+ 
+
+So using this palette, let's draw some lines with colours to understand these properties.
+<br>
+<br>
+<br>
+<style>  .one {
+    font-family: Helvetica;
+    text-align: center;
+    background:#fff001;
+  }</style>
+  <div class='one'> This is an element with no border, no padding, no margin</div>
+  <br>
+  <br>
+ <style>.two {
+    font-family: Helvetica;
+    text-align: center;
+    background:#fff001;
+    border: 0.25em solid #ff0101;
+    }</style> 
+      <div class='two'> This is an element with <strong>border</strong>, no padding, no margin</div>
+      <br>
+      <br>
+<style>.three {
+    font-family: Helvetica;
+    text-align: center;
+    background:#fff001;
+    border: 0.25em solid #ff0101;
+    padding: 2em ;
+    }</style>
+ <div class='three'> This is an element with <strong>border</strong>, with <strong>padding</strong> but no margin</div>
+<br>
+<br>
+
+ <style>.container {
+        background: #0101fd;
+        display: flex;
+        flex-direction: column;
+        max-width: 30em;
+      }
+      .four {
+        font-family: Helvetica;
+        text-align: center;
+        background: #fff001;
+        border: 0.25em solid #ff0101;
+        padding: 2em ;
+        margin : 4em;
+        }</style>
+
+
+<div class='container' >
+
+  <div class='four'> This is an element with <strong>border</strong>, with <strong>padding</strong>, with <strong>margin</strong></div>
+
+</div>
+
+<br>
+<br>
+ With the standard box model, the height and width properties of the element control the size of the inner content box. There is another <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model"> alternative CSS box model</a> where the width and height are calculated up to the borders. 
+<br>
+<br>
+
+<div id="box-code" class="section level2"></div>
+<h2>Show me the Box Model Code</h2>
+
+View the code here: <br>
+<br>
+ <p class="codepen" data-height="265" data-theme-id="dark" data-default-tab="css,result" data-user="kimnewzealand" data-slug-hash="OJybQMp" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Simple  Border Padding Margin with Mondrian">
+    <span>See the Pen <a href="https://codepen.io/kimnewzealand/pen/OJybQMp">
+    Simple  Border Padding Margin with Mondrian</a> by Kim Fitter (<a href="https://codepen.io/kimnewzealand">@kimnewzealand</a>)
+    on <a href="https://codepen.io">CodePen</a>.</span>
+  </p>
+  <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+<div id="css-selectors" class="section level2">
+  <br>
+<h2>CSS Selectors</h2>
+
+CSS is a language with <a hre="https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps/What_is_CSS" >rules</a>.
+<br><br>
+Here is a snippet of the code from the CodePen CSS stylesheet above, this is called a statement block:
+
+<pre>
+    h1 {
+        font-family: Helvetica;
+        font-size: 1.5em;
+        margin-top: 1em;
+    }
+</pre>
+
+<h3>What is a statement block?</h3>
+
+A statement block opens with a  <strong>selector</strong>, followed by a declaration in {}. <br>
+Inside the {} there are CSS properties and values with the format property:value.<br>
+This selects the HTML element that we are going to style. <br>
+<br>
+
+
+Our example uses <strong> type selector</strong> <code>h1</code>.
+<br><br>
+We can also use  <strong> class selector</strong>  such as <code>.one</code> which refers to
+ <code>class='one'</code> in the HTML.</div>
+<br>
+<pre>
+    .one {
+        font-family: Helvetica;
+        text-align: center;
+        background: #fff001;
+      }
+    </pre>
+
+Another less commonly used selector is called <strong> id selector</strong>, which is prefixed with a #, and more advanced <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors">selector groups worth noting.</a>
+
+
+<div id="css-layout" class="section level2">
+<h2>CSS Layout</h2>
+
+Now the positioning of the boxes on the page can be changed with layout techniques and CSS properties.
+
+<h3>Normal flow</h3>
+
+This is how our example would look without any CSS Layout.
+
+<blockquote>This is an element with no border, no padding, no margin<br>
+    This is an element with <strong>border</strong>, no padding, no margin<br>
+    This is an element with  <strong>border</strong>, with <strong>padding</strong> but no margin<br>
+    Element with  <strong>border</strong>, with <strong>padding</strong>, with <strong>margin</strong></blockquote>
+  
+
+Each line is a block element (using <code>div</code>) but the bolded words are in line 
+elements (using <code>strong</code>).
+
+<h3>The display property</h3>
+
+The <code>display</code> CSS property sets how an element is
+ <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display">displayed</a> . 
+ <br><br>
+Some examples of display are :
+<br>
+ <br>
+<pre>
+  .one {
+      display: block;
+  }
+</pre>
+
+<style>
+  .one_block {
+    display:block;
+    font-family: Helvetica;
+    text-align: center;
+    background: #fff001;
+  }
+  .two_block {
+    display:block;
+    text-align: center;
+    border: 0.25em solid #ff0101;
+  }
+</style>
+<div>
+  <div class='one_block'>This is an element with <strong>background</strong></div>
+<div class='two_block'>This is an another element with border</div>
+</div>
+
+<br>
+<br>
+<br>
+<pre>
+  .one {
+      display: inline;
+  }
+  </pre>
+
+<style>
+  .one_inline {
+    display:inline;
+    font-family: Helvetica;
+    text-align: center;
+    background: #fff001;
+  }
+  .two_inline {
+    display:inline;
+    text-align: center;
+    border: 0.25em solid #ff0101;
+  }
+</style>
+  <div class='one_inline'>This is an element with <strong>background</strong></div>
+<div class='two_inline'>This is an another element with border</div>
+
+<br>
+<br>
+
+
+<br>
+
+Other display options are flexbox and grid.
+
+We can use the grid to layout the boxes to create a Mondrian painting.
+<ul>
+<li><a href="#painting-code">Show me the Painting Code</a></li>
+</ul>
+
+<h3>Floats</h3>
+
+We could float all the blocks to the right for example, with the float attribute.
+
+<pre>
+  .one {
+      float: right;
+  }
+  </pre>
+
+<style>
+  .one_float {
+    float:right;
+    font-family: Helvetica;
+    text-align: center;
+    background: #fff001;
+  }
+  .two_float {
+    border: 0.25em solid #ff0101;
+    text-align: center;
+  }
+
+</style>
+<div  >
+  <div class='one_float'>This is an element with <strong>background</strong></div>
+  <div class='two_float'>This is another element with border</div>
+</div>
+
+
+
+
+
+<h3>Positioning</h3>
+
+Position property can position blocks inside of blocks.
+
+<pre>
+.one {
+  position: sticky;
+  top: 2em;
+  left: 2em;
+
+}
+</pre>
+
+<style>
+
+  .one_pos {
+    position: sticky;
+    top: 2em;
+    left: 2em; 
+    text-align: center;
+    font-family: Helvetica;
+    background: #fff001;
+}
+.two_pos {
+  border: 0.25em solid #ff0101;
+  text-align: center;
+}
+</style>
+<div  >
+  <div class='one_pos'>This is an element with <strong>background that sticks as you scroll</strong></div>
+  <div class='two_pos'>This is another element with border</div>
+</div>
+
+<br>
+<br>
+
+<div id="painting-code" class="section level2"></div>
+<h2>Show me the Mondrian Painting Code</h2>
+
+View the code here: <br>
+
+<p class="codepen" data-height="265" data-theme-id="dark" data-default-tab="css,result" data-user="kimnewzealand" data-slug-hash="WNQodKp" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Simple CSS Grid  Relative Units">
+  <span>See the Pen <a href="https://codepen.io/kimnewzealand/pen/WNQodKp">
+  Simple CSS Grid  Relative Units</a> by Kim Fitter (<a href="https://codepen.io/kimnewzealand">@kimnewzealand</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+<div id="ref" class="section level2"></div>
+<h2>References</h2>
+
+There are many other properties and styling techniques in CSS! See this <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">reference guide</a> for more.
+
+</div>
+
+</div>
+
